@@ -11,9 +11,9 @@ void smithWaterman(char* sequence1, char* sequence2, int* scoreMatrix, int width
 #pragma omp parallel
 
     // Adjust loop conditions and array indices
-for (int i = 1; i <= height; ++i) {
+for (int i = 1; i < height; ++i) {
     #pragma omp parallel
-        for (int j = 1; j <= width; ++j) {
+        for (int j = 1; j < width; ++j) {
             // Adjust array indices to start from 0
             int match = (sequence1[i - 1] == sequence2[j - 1]) ? MATCH_SCORE : MISMATCH_SCORE;
 
