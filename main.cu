@@ -54,8 +54,8 @@ int main(int argc, char** argv) {
     //     return 1;
     // }
 
-    const int width = 25;
-    const int height = 25;
+    const int width = 125;
+    const int height = 125;
     char sequence1[height+1] = "TCGCGTAACCAATCAGGCTCTTAACGCGCAGGCATCCCAATTCTCTGTATAAGATCGAGGTAGGAAACTTGCAAACGTAGCTGCCCTGCTACAAACTGTGCAGGGTTTAGGACCTCTTTGATGCC";
     char sequence2[width+1] = "CGCCGTGCCGCAAGGCTAGGGGCGCCCTCGTCTGGGTCAACTTGAGTTAAAGCGTTATGAGAATGCTATATTACCAAGCTGACATGACTCAAATCGAATCACGGACCGCTGCGCAATGCCGCAGA";
     int scoreMatrix[width * height];
