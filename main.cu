@@ -49,10 +49,10 @@ void smithWatermanParallel(char* sequence1, char* sequence2, int* scoreMatrix, i
 }
 
 int main(int argc, char** argv) {
-    if (argc != 3) {
-        std::cerr << "Usage: " << argv[0] << " <blockDimX> <blockDimY>" << std::endl;
-        return 1;
-    }
+    // if (argc != 3) {
+    //     std::cerr << "Usage: " << argv[0] << " <blockDimX> <blockDimY>" << std::endl;
+    //     return 1;
+    // }
 
     const int width = 8;
     const int height = 8;
