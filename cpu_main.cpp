@@ -48,6 +48,8 @@ int main(int argc, char* argv[]) {
     printf("Test 0-2\n");
     // Set the number of threads at runtime
     omp_set_num_threads(desiredNumThreads);
+    // Disable nested parallelism
+    omp_set_nested(0);
     printf("Test 0-3\n");
     const int width = 25;
     const int height = 25;
