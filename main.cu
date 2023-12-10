@@ -56,8 +56,8 @@ int main(int argc, char** argv) {
 
     const int width = 8;
     const int height = 8;
-    char sequence1[height + 1] = "AGTACGTA";
-    char sequence2[width + 1] = "TATAGCGA";
+    char sequence1[height+1] = "AGTACGTA";
+    char sequence2[width+1] = "TATAGCGA";
     int scoreMatrix[width * height];
 
     // Initialize score matrix
