@@ -56,8 +56,8 @@ int main(int argc, char** argv) {
 
     const int width = 8;
     const int height = 8;
-    char sequence1[height+1] = "AGTACGTA";
-    char sequence2[width+1] = "TATAGCGA";
+    char sequence1[height + 1] = "AGTACGTA";
+    char sequence2[width + 1] = "TATAGCGA";
     int scoreMatrix[width * height];
 
     // Initialize score matrix
@@ -73,7 +73,7 @@ int main(int argc, char** argv) {
 
     // Define grid dimensions based on width, height, and block dimensions
     dim3 blockDim(blockDimX, blockDimY);
-    dim3 gridDim((width + blockDim.x - 1) / blockDim.x, (height + blockDim.y - 1) / blockDim.y);
+    dim3 gridDim((width + blockDimX - 1) / blockDimX, (height + blockDimY - 1) / blockDimY);
 
     // Perform parallel Smith-Waterman
     smithWatermanParallel(sequence1, sequence2, scoreMatrix, width, height, blockDim, gridDim);
