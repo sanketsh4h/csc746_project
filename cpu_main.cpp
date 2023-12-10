@@ -10,9 +10,9 @@ void smithWaterman(char* sequence1, char* sequence2, int* scoreMatrix, int width
     printf("Test 3\n");
 #pragma omp parallel
 
-    for (int i = 1; i <height; ++i) {
+    for (int i = 1; i <height+1; ++i) {
 
-        for (int j = 1; j < width; ++j) {
+        for (int j = 1; j < width+1; ++j) {
             int match = (sequence1[i - 1] == sequence2[j - 1]) ? MATCH_SCORE : MISMATCH_SCORE;
 
             int diagonal = scoreMatrix[(i - 1) * (width + 1) + (j - 1)] + match;
