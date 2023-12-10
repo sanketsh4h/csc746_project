@@ -12,22 +12,22 @@ void smithWaterman(char* sequence1, char* sequence2, int* scoreMatrix, int width
 
     // Adjust loop conditions and array indices
 for (int i = 1; i <= height; ++i) {
-    for (int j = 1; j <= width; ++j) {
-        // Adjust array indices to start from 0
-        int match = (sequence1[i - 1] == sequence2[j - 1]) ? MATCH_SCORE : MISMATCH_SCORE;
+        for (int j = 1; j <= width; ++j) {
+            // Adjust array indices to start from 0
+            int match = (sequence1[i - 1] == sequence2[j - 1]) ? MATCH_SCORE : MISMATCH_SCORE;
 
-        // Adjust array indices for scoreMatrix
-        int diagonal = scoreMatrix[(i - 1) * width + (j - 1)] + match;
-        int up = scoreMatrix[(i - 1) * width + j] + GAP_PENALTY;
-        int left = scoreMatrix[i * width + (j - 1)] + GAP_PENALTY;
+            // Adjust array indices for scoreMatrix
+            int diagonal = scoreMatrix[(i - 1) * width + (j - 1)] + match;
+            int up = scoreMatrix[(i - 1) * width + j] + GAP_PENALTY;
+            int left = scoreMatrix[i * width + (j - 1)] + GAP_PENALTY;
 
-        // Adjust array indices for scoreMatrix
-        int maxScore = std::max(0, std::max(diagonal, std::max(up, left)));
+            // Adjust array indices for scoreMatrix
+            int maxScore = std::max(0, std::max(diagonal, std::max(up, left)));
 
-        // Adjust array indices for scoreMatrix
-        scoreMatrix[i * width + j] = maxScore;
+            // Adjust array indices for scoreMatrix
+            scoreMatrix[i * width + j] = maxScore;
+        }
     }
-}
 
 }
 
@@ -49,15 +49,15 @@ int main(int argc, char* argv[]) {
     const int height = 625;
     char sequence1[height + 1] = "GCCTCAACTTACTTTTGCGCTTAGCTGGAGTTGCCCCTCTTATTACTACCGGATGATCGCAACATAACCGGTCGTCAAATAAGGAGGTTGATATCCCGACAAAGTGGAGCATTAGCGAGGATCGACATTTTTCAGGGAAGAATACAATCTTTAGCCTCAGTATCTATTCCGAGCTTTGTCCGTGGCGCCCGTTCTAATAGCTAAGCACTCATTCTAGGCCAAAATCGGGTTTGGGGAATCTTCACTCTCTCTGAGTCGCAGGATGCGCGCCTCGTACTCAGATCTTTATATTGGTCTTAATTTATGTAGCCAAATGGGGCACGGATACGGTTAGGACTGGCAGGAGTAGTATTGTCCTGTGCCTAGACCCTTGCTTGGACACTCACTATTATGGATGTGTACCGCAATTCACCCAGCGGAAAAGTAAAGCACAAAAGGGAGGATACCTCCCCGTGAACGACCCGTTGCAGTGTGACTCGTCAAACCAGCCGCCAGTGTCATGGATAAGCCAGCACAACGACTACTTGAAAACGGATCTCTGCGACCGTGAAGCTCGGTGCGGCTGATCCGATTTCAGTCCCACATGACACCAATAGATCGAGGTCATATAGCCGTCTATAAGTTC";
     char sequence2[width + 1] = "CCGCTCTTTTCTGTTCACTAAGTGGGTTCCGGGCGCTGACGGTTCCGGAATCTGTTTCGTAATTAGAGCTTGCAAGCTCGAAGAAAGGTAATCGAAGGGGGCTACGATTCAGCCCCTACACGGGATTGGCTGGACAACAAACGAGCCAGCTATGGAAGCCCCGCAGGATAGCGGTTCCGGATGGTAAGGCTTTACTGTCAGAAGCAAGCAGGGGGAGGGTAATGCATCTGAGGGGTTGATGTATGGTGGTGACGTTATGTGGTACCTGTTAGAGTCCTCGATCAGACCTATGTGAGTTCTACGATGGTTGTCTTTTTTTCAGTTACCGTACTTTGAATAGCGAAAGACGTTGTTTCCGAACCATGCTGGAGGTAATGGTTAAAGACAACCTGTATTTCTTTCAAATTATGTTTAACTTAATCTCCTAGTAGAGCCGATATGTGTAAGGGTTATCCCATTCGCATGTATCGATGGACCTTAACACCGACTACTTGCGCCCTAAAGTAGTTGTACGCCAACGTATGGAGCGCATGACAACGGATAAATGGTTTTGATATGCTGGACTCGGTGGGCCAAATGACGATTGACGCCATGCAGCCAGGGGGGATGCGCTATACGCCGGGGG";
-    int scoreMatrix[width*height];
+    int* scoreMatrix = new int[width * height];
 
     printf("Test 1\n");
     // Initialize score matrix
     for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width; ++j) {
-            scoreMatrix[i * width + j] = 0;
-        }
+    for (int j = 0; j < width; ++j) {
+        scoreMatrix[i * width + j] = 0;
     }
+}
 
     printf("Test 2\n");
     auto start = std::chrono::high_resolution_clock::now();
@@ -75,6 +75,8 @@ int main(int argc, char* argv[]) {
     //     }
     //     std::cout << std::endl;
     // }
+
+    delete[] scoreMatrix;
 
     return 0;
 }
