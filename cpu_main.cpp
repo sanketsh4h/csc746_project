@@ -49,11 +49,12 @@ int main(int argc, char* argv[]) {
 
     printf("Test 1\n");
     // Initialize score matrix
-    for (int i = 0; i <= height; ++i) {
-        for (int j = 0; j <= width; ++j) {
-            scoreMatrix[i * (width + 1) + j] = 0;
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            scoreMatrix[i * width + j] = 0;
         }
     }
+
     printf("Test 2\n");
     auto start = std::chrono::high_resolution_clock::now();
     // Perform Smith-Waterman on CPU
