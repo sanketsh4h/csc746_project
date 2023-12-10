@@ -26,8 +26,9 @@ for dim in "${block_dimensions[@]}"; do
     echo "--------------------------------------"
 
     # Run your CUDA program with ncu to collect metrics
-    ncu --set default --section SourceCounters --metrics smsp__cycles_active.avg.pct_of_peak_sustained_elapsed,dram__throughput.avg.pct_of_peak_sustained_elapsed,gpu__time_duration.avg $CUDA_PROGRAM $dim >> "$METRICS_OUTPUT"
+    ncu --set default --section SourceCounters --metrics smsp__cycles_active.avg.pct_of_peak_sustained_elapsed,dram__throughput.avg.pct_of_peak_sustained_elapsed,gpu__time_duration.avg --target-processes all $CUDA_PROGRAM $dim >> "$METRICS_OUTPUT"
 done
 
+cat "$METRICS_OUTPUT"
 # Cleanup
 rm smith_waterman_cuda
