@@ -42,13 +42,13 @@ int main(int argc, char* argv[]) {
     //     std::cerr << "Usage: " << argv[0] << " <numThreads>" << std::endl;
     //     return 1;
     // }
-
+    printf("Test 0-1\n");
     // Convert the command-line argument to an integer
     int desiredNumThreads = std::stoi(argv[1]);
-
+    printf("Test 0-2\n");
     // Set the number of threads at runtime
     omp_set_num_threads(desiredNumThreads);
-
+    printf("Test 0-3\n");
     const int width = 25;
     const int height = 25;
     char sequence1[height + 1] = "TGATATAGCATTAGTCAGCGGAGAA";
