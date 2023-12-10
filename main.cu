@@ -22,7 +22,7 @@ __global__ void smithWatermanKernel(char* sequence1, char* sequence2, int* score
     }
 }
 
-void smithWatermanParallel(char* sequence1, char* sequence2, int* scoreMatrix, int width, int height) {
+void smithWatermanParallel(char* sequence1, char* sequence2, int* scoreMatrix, int width, int height, dim3 blockDim, dim3 gridDim) {
     char* d_sequence1, *d_sequence2;
     int* d_scoreMatrix;
 
@@ -35,10 +35,6 @@ void smithWatermanParallel(char* sequence1, char* sequence2, int* scoreMatrix, i
     cudaMemcpy(d_sequence1, sequence1, height * sizeof(char), cudaMemcpyHostToDevice);
     cudaMemcpy(d_sequence2, sequence2, width * sizeof(char), cudaMemcpyHostToDevice);
     cudaMemcpy(d_scoreMatrix, scoreMatrix, width * height * sizeof(int), cudaMemcpyHostToDevice);
-
-    // Define grid and block dimensions
-    dim3 blockDim(16, 16);
-    dim3 gridDim((width + blockDim.x - 1) / blockDim.x, (height + blockDim.y - 1) / blockDim.y);
 
     // Launch kernel
     smithWatermanKernel<<<gridDim, blockDim>>>(d_sequence1, d_sequence2, d_scoreMatrix, width, height);
@@ -66,8 +62,18 @@ int main() {
         }
     }
 
+    // User input for block dimensions
+    int blockDimX, blockDimY;
+    std::cout << "Enter block dimensions (blockDimX blockDimY): ";
+    std::cin >> blockDimX >> blockDimY;
+
+    dim3 blockDim(blockDimX, blockDimY);
+
+    // Automatically calculate grid dimensions based on width, height, and blockDim
+    dim3 gridDim((width + blockDim.x - 1) / blockDim.x, (height + blockDim.y - 1) / blockDim.y);
+
     // Perform parallel Smith-Waterman
-    smithWatermanParallel(sequence1, sequence2, scoreMatrix, width, height);
+    smithWatermanParallel(sequence1, sequence2, scoreMatrix, width, height, blockDim, gridDim);
 
     // Output the resulting score matrix
     for (int i = 0; i < height; ++i) {
