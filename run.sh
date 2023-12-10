@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compile the CUDA program
-nvcc -o smith_waterman_cuda smith_waterman_cuda.cu
+nvcc -o smith_waterman_cuda main.cu
 
 # Define the input sequences
 sequence1="AGTACGTA"
