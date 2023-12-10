@@ -62,14 +62,15 @@ int main(int argc, char* argv[]) {
 
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout << "Duration: " << duration.count() << " microseconds" << std::endl;
     printf("Test 7\n");
     // Output the resulting score matrix
-    for (int i = 0; i <= height; ++i) {
-        for (int j = 0; j <= width; ++j) {
-            std::cout << scoreMatrix[i * (width + 1) + j] << " ";
-        }
-        std::cout << std::endl;
-    }
+    // for (int i = 0; i <= height; ++i) {
+    //     for (int j = 0; j <= width; ++j) {
+    //         std::cout << scoreMatrix[i * (width + 1) + j] << " ";
+    //     }
+    //     std::cout << std::endl;
+    // }
 
     return 0;
 }
