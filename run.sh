@@ -17,11 +17,14 @@ block_dimensions=("8 8" "16 16" "32 32")
 
 # Loop through each block dimension and run the program
 for dim in "${block_dimensions[@]}"; do
+    IFS=' ' read -r blockDimX blockDimY <<< "$dim"
     echo "Running with block dimensions: $dim"
+    $CUDA_PROGRAM $blockDimX $blockDimY
     
     # Run your CUDA program with ncu to collect metrics
-    ncu --set default --section SourceCounters --metrics smsp__cycles_active.avg.pct_of_peak_sustained_elapsed,dram__throughput.avg.pct_of_peak_sustained_elapsed,gpu__time_duration.avg --target-processes all "$CUDA_PROGRAM" $dim >> "$METRICS_OUTPUT"
+    ncu --set default --section SourceCounters --metrics smsp__cycles_active.avg.pct_of_peak_sustained_elapsed,dram__throughput.avg.pct_of_peak_sustained_elapsed,gpu__time_duration.avg --target-processes all "$CUDA_PROGRAM" "$blockDimX" "$blockDimY" --kernel-id smithWatermanKernel >> "$METRICS_OUTPUT"
 done
 
+cat "$METRICS_OUTPUT"
 # Cleanup
 rm smith_waterman_cuda
