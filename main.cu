@@ -53,10 +53,10 @@ void smithWatermanParallel(char* sequence1, char* sequence2, int* scoreMatrix, i
 }
 
 int main() {
-    const int width = 10;
+    const int width = 8;
     const int height = 8;
-    char sequence1[height] = "AGTACGTA";
-    char sequence2[width] = "TATAGCGA";
+    char sequence1[height+1] = "AGTACGTA";
+    char sequence2[width+1] = "TATAGCGA";
     int scoreMatrix[width * height];
 
     // Initialize score matrix
