@@ -48,7 +48,12 @@ void smithWatermanParallel(char* sequence1, char* sequence2, int* scoreMatrix, i
     cudaFree(d_scoreMatrix);
 }
 
-int main() {
+int main(int argc, char** argv) {
+    if (argc != 3) {
+        std::cerr << "Usage: " << argv[0] << " <blockDimX> <blockDimY>" << std::endl;
+        return 1;
+    }
+
     const int width = 8;
     const int height = 8;
     char sequence1[height+1] = "AGTACGTA";
@@ -62,14 +67,12 @@ int main() {
         }
     }
 
-    // User input for block dimensions
-    int blockDimX, blockDimY;
-    std::cout << "Enter block dimensions (blockDimX blockDimY): ";
-    std::cin >> blockDimX >> blockDimY;
+    // Extract block dimensions from command-line arguments
+    int blockDimX = std::stoi(argv[1]);
+    int blockDimY = std::stoi(argv[2]);
 
+    // Define grid dimensions based on width, height, and block dimensions
     dim3 blockDim(blockDimX, blockDimY);
-
-    // Automatically calculate grid dimensions based on width, height, and blockDim
     dim3 gridDim((width + blockDim.x - 1) / blockDim.x, (height + blockDim.y - 1) / blockDim.y);
 
     // Perform parallel Smith-Waterman
