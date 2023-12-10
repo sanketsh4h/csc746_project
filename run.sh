@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compile the CUDA program
-nvcc -o smith_waterman_cuda main.cu
+nvcc main.cu -o smith_waterman_cuda
 
 # Path to your CUDA program
 CUDA_PROGRAM="./smith_waterman_cuda"
