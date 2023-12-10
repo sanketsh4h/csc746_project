@@ -5,12 +5,6 @@ const int GAP_PENALTY = -2;
 const int MATCH_SCORE = 2;
 const int MISMATCH_SCORE = -1;
 
-int desiredNumThreads = std::stoi(argv[1]);
-
-// Set the number of threads at runtime
-omp_set_num_threads(desiredNumThreads);
-
-
 void smithWaterman(char* sequence1, char* sequence2, int* scoreMatrix, int width, int height) {
 #pragma omp parallel
     for (int i = 1; i <= height; ++i) {
@@ -29,12 +23,23 @@ void smithWaterman(char* sequence1, char* sequence2, int* scoreMatrix, int width
     }
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+    // if (argc != 2) {
+    //     std::cerr << "Usage: " << argv[0] << " <numThreads>" << std::endl;
+    //     return 1;
+    // }
+
+    // Convert the command-line argument to an integer
+    int desiredNumThreads = std::stoi(argv[1]);
+
+    // Set the number of threads at runtime
+    omp_set_num_threads(desiredNumThreads);
+
     const int width = 25;
     const int height = 25;
-    char sequence1[height+1] = "TGATATAGCATTAGTCAGCGGAGAA";
-    char sequence2[width+1] = "GCATGTATTCCTGCATGTATACAAC";
-    int scoreMatrix[(width + 1) * (height + 1)];
+    char sequence1[height + 1] = "TGATATAGCATTAGTCAGCGGAGAA";
+    char sequence2[width + 1] = "GCATGTATTCCTGCATGTATACAAC";
+    int scoreMatrix[width*height];
 
     // Initialize score matrix
     for (int i = 0; i <= height; ++i) {
