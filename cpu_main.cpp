@@ -9,16 +9,9 @@ const int MISMATCH_SCORE = -1;
 void smithWaterman(char* sequence1, char* sequence2, int* scoreMatrix, int width, int height) {
     printf("Test 3\n");
 #pragma omp parallel
-#pragma omp critical
-    {
-        printf("Test 4\n");
-    }
+
     for (int i = 1; i <= height; ++i) {
-// #pragma omp parallel
-    #pragma omp critical
-        {
-            printf("Test 5\n");
-        }
+
         for (int j = 1; j <= width; ++j) {
             int match = (sequence1[i - 1] == sequence2[j - 1]) ? MATCH_SCORE : MISMATCH_SCORE;
 
@@ -29,10 +22,7 @@ void smithWaterman(char* sequence1, char* sequence2, int* scoreMatrix, int width
             int maxScore = std::max(0, std::max(diagonal, std::max(up, left)));
 
             scoreMatrix[i * (width + 1) + j] = maxScore;
-            #pragma omp critical
-                {
-                    printf("Test 6\n");
-                }
+
         }
     }
 }
