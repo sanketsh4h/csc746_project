@@ -1,5 +1,6 @@
 #include <iostream>
 #include <omp.h>
+#include <chrono>
 
 const int GAP_PENALTY = -2;
 const int MATCH_SCORE = 2;
@@ -48,8 +49,12 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    auto start = std::chrono::high_resolution_clock::now();
     // Perform Smith-Waterman on CPU
     smithWaterman(sequence1, sequence2, scoreMatrix, width, height);
+
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
     // Output the resulting score matrix
     for (int i = 0; i <= height; ++i) {
