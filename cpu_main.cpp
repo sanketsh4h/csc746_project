@@ -7,12 +7,12 @@ const int MATCH_SCORE = 2;
 const int MISMATCH_SCORE = -1;
 
 void smithWaterman(char* sequence1, char* sequence2, int* scoreMatrix, int width, int height) {
-    printf("Test 3");
+    // printf("Test 3");
 #pragma omp parallel
-printf("Test 4");
+// printf("Test 4");
     for (int i = 1; i <= height; ++i) {
-#pragma omp parallel
-printf("Test 5");
+// #pragma omp parallel
+// printf("Test 5");
         for (int j = 1; j <= width; ++j) {
             int match = (sequence1[i - 1] == sequence2[j - 1]) ? MATCH_SCORE : MISMATCH_SCORE;
 
@@ -46,21 +46,21 @@ int main(int argc, char* argv[]) {
     char sequence2[width + 1] = "GCATGTATTCCTGCATGTATACAAC";
     int scoreMatrix[width*height];
 
-    printf("Test 1");
+    // printf("Test 1");
     // Initialize score matrix
     for (int i = 0; i <= height; ++i) {
         for (int j = 0; j <= width; ++j) {
             scoreMatrix[i * (width + 1) + j] = 0;
         }
     }
-    printf("Test 2");
+    // printf("Test 2");
     auto start = std::chrono::high_resolution_clock::now();
     // Perform Smith-Waterman on CPU
     smithWaterman(sequence1, sequence2, scoreMatrix, width, height);
 
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-    printf("Test 7");
+    // printf("Test 7");
     // Output the resulting score matrix
     for (int i = 0; i <= height; ++i) {
         for (int j = 0; j <= width; ++j) {
