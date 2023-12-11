@@ -11,6 +11,7 @@ void smithWaterman(char* sequence1, char* sequence2, int* scoreMatrix, int width
 #pragma omp parallel
 
     // Adjust loop conditions and array indices
+    // Replace the < with <= when length = 625
 for (int i = 1; i < height; ++i) {
     #pragma omp parallel
         for (int j = 1; j < width; ++j) {
